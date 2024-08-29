@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Character } from '../interfaces/character';
 
 const useCharacters = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const baseUrl = 'https://rickandmortyapi.com/api/character'
-
+  const [data, setData] = useState<Character[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
   useEffect(() => {
     const getCharacters = async () => {
       try {
-        const response = await axios.get(baseUrl);
+        const response = await axios.get(import.meta.env.VITE_API_URL);
         setData(response.data.results);
       } catch (err) {
-        setError(err);
+        setError('Error fetching data');
       } finally {
         setLoading(false);
       }
