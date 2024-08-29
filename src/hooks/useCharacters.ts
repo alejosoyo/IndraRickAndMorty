@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import config from '../../config';
 import { Character } from '../interfaces/character';
 
 const useCharacters = () => {
@@ -9,7 +10,7 @@ const useCharacters = () => {
   useEffect(() => {
     const getCharacters = async () => {
       try {
-        const response = await axios.get(import.meta.env.VITE_API_URL);
+        const response = await axios.get(config.API_URL);
         setData(response.data.results);
       } catch (err) {
         setError('Error fetching data');
